@@ -1,0 +1,200 @@
+.header-outer {
+    border-bottom: 1px solid #e0e0e0;
+    background: #ffffff;
+}
+
+html,
+.Label h2,
+#sidebar .rss a,
+.BlogArchive h2,
+.FollowByEmail h2.title,
+.widget .post h2 {
+    font-family: Roboto, sans-serif;
+}
+
+.plusfollowers h2.title,
+.post h2.title,
+.widget h2.title {
+    font-family: Roboto, sans-serif;
+}
+
+.widget-item-control {
+    height: 100%;
+}
+
+.widget.Header,
+#header {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+}
+
+.widget.Header .header-logo1 {
+    float: left;
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid #ddd;
+}
+
+.header-title h2 {
+    color: #282828 !important;
+    font-size: 46px;
+    font-weight: 300;
+    margin-top: -20px;
+    margin-bottom: -20px;
+    margin-left: -5px;
+    padding-top: 0;
+    vertical-align: top;
+    line-height: 50px;
+}
+
+.header-inner {
+    background-repeat: no-repeat;
+    background-position: right 0px;
+}
+
+.post-author,
+.byline-author {
+    font-size: 14px;
+    font-weight: normal;
+    color: #757575;
+    color: rgba(0, 0, 0, .54);
+}
+
+.post-content .img-border {
+    border: 1px solid rgb(235, 235, 235);
+    padding: 4px;
+}
+
+.header-title a {
+    text-decoration: none !important;
+}
+
+pre {
+    border: 1px solid #bbbbbb;
+    margin-top: 1em 0 0 0;
+    padding: 0.99em;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+pre,
+code {
+    font-size: 9pt;
+    background-color: #fafafa;
+    line-height: 125%;
+    font-family: monospace;
+}
+
+pre,
+code {
+    color: #060;
+    font: 13px/1.54 "courier new", courier, monospace;
+}
+
+.header-left .header-logo1 {
+    width: 128px !important;
+}
+
+.header-desc {
+    color: #282828 !important;
+    font-family: Roboto, sans-serif;
+    font-size: 21px;
+    font-weight: 300;
+    margin-top: 19px;
+}
+
+.fb-custom img,
+.twitter-custom img {
+    cursor: pointer;
+    opacity: 0.54;
+}
+
+.fb-custom img:hover,
+.twitter-custom img:hover {
+    opacity: 0.87;
+}
+
+.fb-like {
+    width: 80px;
+}
+
+.post .share {
+    float: right;
+}
+
+#twitter-share {
+    border: #CCC solid 1px;
+    border-radius: 3px;
+    background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+}
+
+.twitter-follow {
+    background: url(//3.bp.blogspot.com/-M7uPAxKEeh4/WKrvV1ujKCI/AAAAAAAATZE/cdHhTldtvk4q4ad1Me1XDIgQD9Aul09CACK4B/s1600/twitter-bird.png) no-repeat left center;
+    padding-left: 18px;
+    font: normal normal normal 11px/18px 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.twitter-fb {
+    padding-top: 2px;
+}
+
+.fb-follow-button {
+    background: -webkit-linear-gradient(#4c69ba, #3b55a0);
+    background: -moz-linear-gradient(#4c69ba, #3b55a0);
+    background: linear-gradient(#4c69ba, #3b55a0);
+    border-radius: 2px;
+    height: 18px;
+    padding: 4px 0 0 3px;
+    width: 57px;
+    border: #4c69ba solid 1px;
+}
+
+.fb-follow-button a {
+    text-decoration: none !important;
+    text-shadow: 0 -1px 0 #354c8c;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 11px;
+    color: white;
+    vertical-align: top;
+}
+
+.fb-follow-button a:visited {
+    color: white;
+}
+
+.fb-follow {
+    padding: 0px 5px 3px 0px;
+    width: 14px;
+    vertical-align: bottom;
+}
+
+.twitter-custom {
+    margin-right: 12px;
+}
+
+.fb-follow-button {
+    margin: 10px 0;
+}
+
+.header-outer {
+    background-color: #eee;
+}
+
+.Header h2 {
+    color: #fff;
+}
+
+.header-desc {
+    color: #910e12;
+}
+
+.followgooglewrapper {
+    text-align: left;
+}
