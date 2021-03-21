@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html class='v2 detail-page' dir='ltr' itemscope='' itemtype='https://schema.org/Blog' lang='en'
+    xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b'
+    xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<head>
+    <link href='https://www.blogger.com/static/v1/widgets/3416767676-css_bundle_v2.css' rel='stylesheet'
+        type='text/css' />
+    <title>
+        YouTube Engineering and Developers Blog: Control your 360 videos with the YouTube IFrame Player API
+    </title>
+    <meta content='width=device-width, height=device-height, minimum-scale=1.0, initial-scale=1.0, user-scalable=0'
+        name='viewport' />
+    <meta content='IE=Edge' http-equiv='X-UA-Compatible' />
+    <meta content='article' property='og:type' />
+    <meta content='Control your 360 videos with the YouTube IFrame Player API' property='og:title' />
+    <meta content='http://www.gstatic.com/youtube/img/branding/youtubelogo/2x/youtubelogo_60.png' property='og:image' />
+    <meta content='en_US' property='og:locale' />
+    <meta content='https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html'
+        property='og:url' />
+    <meta content='YouTube Engineering and Developers Blog' property='og:site_name' />
+    <!-- Twitter Card properties -->
+    <meta content='YouTube Engineering and Developers Blog' property='twitter:site' />
+    <meta content='Control your 360 videos with the YouTube IFrame Player API' property='twitter:title' />
+    <meta content='https://i.ytimg.com/vi/G-XZhKqQAHU/default.jpg' property='twitter:image' />
+    <meta content='summary' name='twitter:card' />
+    <meta content='@youtubedev' name='twitter:creator' />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400italic,400,500,500italic,700,700italic'
+        rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js' type='text/javascript'></script>
+    <!-- End -->
+    <style id='page-skin-1' type='text/css'>
+        <!--
+        /*
+<Group description="Header Color" selector="header">
+<Variable name="header.background.color" description="Header Background"
+type="color" default="#ffffff"/>
+</Group>
+*/
+        .header-outer {
+            border-bottom: 1px solid #e0e0e0;
+            background: #ffffff;
+        }
+
+        html,
+        .Label h2,
+        #sidebar .rss a,
+        .BlogArchive h2,
+        .FollowByEmail h2.title,
+        .widget .post h2 {
+            font-family: Roboto, sans-serif;
+        }
+
+        .plusfollowers h2.title,
+        .post h2.title,
+        .widget h2.title {
+            font-family: Roboto, sans-serif;
+        }
+
+        .widget-item-control {
+            height: 100%;
+        }
+
+        .widget.Header,
+        #header {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        }
+
+        .widget.Header .header-logo1 {
+            float: left;
+            margin-right: 15px;
+            padding-right: 15px;
+            border-right: 1px solid #ddd;
+        }
+
+        .header-title h2 {
+            color: #282828 !important;
+            font-size: 46px;
+            font-weight: 300;
+            margin-top: -20px;
+            margin-bottom: -20px;
+            margin-left: -5px;
+            padding-top: 0;
+            vertical-align: top;
+            line-height: 50px;
+        }
+
+        .header-inner {
+            background-repeat: no-repeat;
+            background-position: right 0px;
+        }
+
+        .post-author,
+        .byline-author {
+            font-size: 14px;
+            font-weight: normal;
+            color: #757575;
+            color: rgba(0, 0, 0, .54);
+        }
+
+        .post-content .img-border {
+            border: 1px solid rgb(235, 235, 235);
+            padding: 4px;
+        }
+
+        .header-title a {
+            text-decoration: none !important;
+        }
+
+        pre {
+            border: 1px solid #bbbbbb;
+            margin-top: 1em 0 0 0;
+            padding: 0.99em;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+
+        pre,
+        code {
+            font-size: 9pt;
+            background-color: #fafafa;
+            line-height: 125%;
+            font-family: monospace;
+        }
+
+        pre,
+        code {
+            color: #060;
+            font: 13px/1.54 "courier new", courier, monospace;
+        }
+
+        .header-left .header-logo1 {
+            width: 128px !important;
+        }
+
+        .header-desc {
+            color: #282828 !important;
+            font-family: Roboto, sans-serif;
+            font-size: 21px;
+            font-weight: 300;
+            margin-top: 19px;
+        }
+
+        .fb-custom img,
+        .twitter-custom img {
+            cursor: pointer;
+            opacity: 0.54;
+        }
+
+        .fb-custom img:hover,
+        .twitter-custom img:hover {
+            opacity: 0.87;
+        }
+
+        .fb-like {
+            width: 80px;
+        }
+
+        .post .share {
+            float: right;
+        }
+
+        #twitter-share {
+            border: #CCC solid 1px;
+            border-radius: 3px;
+            background-image: -webkit-linear-gradient(top, #ffffff, #dedede);
+        }
+
+        .twitter-follow {
+            background: url(//3.bp.blogspot.com/-M7uPAxKEeh4/WKrvV1ujKCI/AAAAAAAATZE/cdHhTldtvk4q4ad1Me1XDIgQD9Aul09CACK4B/s1600/twitter-bird.png) no-repeat left center;
+            padding-left: 18px;
+            font: normal normal normal 11px/18px 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .twitter-fb {
+            padding-top: 2px;
+        }
+
+        .fb-follow-button {
+            background: -webkit-linear-gradient(#4c69ba, #3b55a0);
+            background: -moz-linear-gradient(#4c69ba, #3b55a0);
+            background: linear-gradient(#4c69ba, #3b55a0);
+            border-radius: 2px;
+            height: 18px;
+            padding: 4px 0 0 3px;
+            width: 57px;
+            border: #4c69ba solid 1px;
+        }
+
+        .fb-follow-button a {
+            text-decoration: none !important;
+            text-shadow: 0 -1px 0 #354c8c;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 11px;
+            color: white;
+            vertical-align: top;
+        }
+
+        .fb-follow-button a:visited {
+            color: white;
+        }
+
+        .fb-follow {
+            padding: 0px 5px 3px 0px;
+            width: 14px;
+            vertical-align: bottom;
+        }
+
+        .twitter-custom {
+            margin-right: 12px;
+        }
+
+        .fb-follow-button {
+            margin: 10px 0;
+        }
+
+        .header-outer {
+            background-color: #eee;
+        }
+
+        .Header h2 {
+            color: #fff;
+        }
+
+        .header-desc {
+            color: #910e12;
+        }
+
+        .followgooglewrapper {
+            text-align: left;
+        }
+
+        /** CUSTOM CODE **/
+        -->
+    </style>
+    <style id='template-skin-1' type='text/css'>
+        <!--
+        .mike1 {
+            border: 1px solid #ccc;
+        }
+
+        .header-outer {
+            clear: both;
+        }
+
+        .header-inner {
+            margin: auto;
+            padding: 0px;
+        }
+
+        .footer-outer {
+            background: #f5f5f5;
+            clear: both;
+            margin: 0;
+        }
+
+        .footer-inner {
+            margin: auto;
+            padding: 0px;
+        }
+
+        .footer-inner-2 {
+            /* Account for right hand column elasticity. */
+            max-width: calc(100% - 248px);
+        }
+
+        .google-footer-outer {
+            clear: both;
+        }
+
+        .cols-wrapper,
+        .google-footer-outer,
+        .footer-inner,
+        .header-inner {
+            max-width: 978px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cols-wrapper {
+            margin: auto;
+            clear: both;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            overflow: hidden;
+        }
+
+        .col-main-wrapper {
+            float: left;
+            width: 100%;
+        }
+
+        .col-main {
+            margin-right: 278px;
+            max-width: 660px;
+        }
+
+        .col-right {
+            float: right;
+            width: 248px;
+            margin-left: -278px;
+        }
+
+        /* Tweaks for layout mode. */
+        body#layout .google-footer-outer {
+            display: none;
+        }
+
+        body#layout .header-outer,
+        body#layout .footer-outer {
+            background: none;
+        }
+
+        body#layout .header-inner {
+            height: initial;
+        }
+
+        body#layout .cols-wrapper {
+            margin-top: initial;
+            margin-bottom: initial;
+        }
+        -->
+    </style>
+    <!-- start all head -->
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta content='blogger' name='generator' />
+    <link href='https://youtube-eng.googleblog.com/favicon.ico' rel='icon' type='image/x-icon' />
+    <link href='https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html' rel='canonical' />
+    <link rel="alternate" type="application/atom+xml" title="YouTube Engineering and Developers Blog - Atom"
+        href="https://youtube-eng.googleblog.com/feeds/posts/default" />
+    <link rel="alternate" type="application/rss+xml" title="YouTube Engineering and Developers Blog - RSS"
+        href="https://youtube-eng.googleblog.com/feeds/posts/default?alt=rss" />
+    <link rel="service.post" type="application/atom+xml" title="YouTube Engineering and Developers Blog - Atom"
+        href="https://www.blogger.com/feeds/1109038746813902833/posts/default" />
+
+    <link rel="alternate" type="application/atom+xml" title="YouTube Engineering and Developers Blog - Atom"
+        href="https://youtube-eng.googleblog.com/feeds/5087154068109238670/comments/default" />
+    <!--[if IE]><script type="text/javascript" src="https://www.blogger.com/static/v1/jsbin/1277698886-ieretrofit.js"></script>
+<![endif]-->
+    <link href='https://i.ytimg.com/vi/G-XZhKqQAHU/hqdefault.jpg' rel='image_src' />
+    <meta content='https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html'
+        property='og:url' />
+    <meta content='Control your 360 videos with the YouTube IFrame Player API' property='og:title' />
+    <meta
+        content='Ever since we launched 360° videos  in 2015, we&#39;ve been exploring ways to unleash the full potential of this new video format, including Car...'
+        property='og:description' />
+    <meta
+        content='https://lh4.googleusercontent.com/proxy/PRjujgZ8CpMoVaRpHu3VI4-F7YGVNYt4wev3yp3fa0W6-8iORJUYpQcjror049e7vdtBQKDl3rCXlfPDXbRJ1Bd-CVU=w1200-h630-n-k-no-nu'
+        property='og:image' />
+    <!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+    <!-- end all head -->
+    <base target='_self' />
+    <style>
+        html {
+            font-family: Roboto, sans-serif;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            padding: 0;
+            /* This ensures that the scroll bar is always present, which is needed */
+            /* because content render happens after page load; otherwise the header */
+            /* would "bounce" in-between states. */
+            min-height: 150%;
+        }
+
+        h2 {
+            font-size: 16px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            line-height: 2em;
+        }
+
+        html,
+        h4,
+        h5,
+        h6 {
+            font-size: 14px;
+        }
+
+        a,
+        a:visited {
+            color: #4184F3;
+            text-decoration: none;
+        }
+
+        a:focus,
+        a:hover,
+        a:active {
+            text-decoration: none;
+        }
+
+        .Header {
+            margin-top: 15px;
+        }
+
+        .Header h1 {
+            font-size: 32px;
+            font-weight: 300;
+            line-height: 32px;
+            height: 42px;
+        }
+
+        .header-inner .Header .titlewrapper {
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .header-inner .Header .descriptionwrapper {
+            padding: 0;
+            margin: 0;
+        }
+
+        .cols-wrapper {
+            margin-top: 56px;
+        }
+
+        .header-outer,
+        .cols-wrapper,
+        .footer-outer,
+        .google-footer-outer {
+            padding: 0 60px;
+        }
+
+        .header-inner {
+            height: 256px;
+            position: relative;
+        }
+
+        html,
+        .header-inner a {
+            color: #212121;
+            color: rgba(0, 0, 0, .87);
+        }
+
+        .header-inner .google-logo {
+            display: inline-block;
+            background-size: contain;
+            z-index: 1;
+            height: 46px;
+            overflow: hidden;
+            margin-top: 0;
+            margin-right: 8px;
+        }
+
+        .header-left {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .google-logo {
+            margin-left: -4px;
+        }
+
+        #google-footer {
+            position: relative;
+            font-size: 13px;
+            list-style: none;
+            text-align: right;
+        }
+
+        #google-footer a {
+            color: #444;
+        }
+
+        #google-footer ul {
+            margin: 0;
+            padding: 0;
+            height: 144px;
+            line-height: 144px;
+        }
+
+        #google-footer ul li {
+            display: inline;
+        }
+
+        #google-footer ul li:before {
+            color: #999;
+            content: "\00b7";
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        #google-footer ul li:first-child:before {
+            content: '';
+        }
+
+        #google-footer .google-logo-dark {
+            left: 0;
+            margin-top: -16px;
+            position: absolute;
+            top: 50%;
+        }
+
+        /** Sitemap links. **/
+        .footer-inner-2 {
+            font-size: 14px;
+            padding-top: 42px;
+            padding-bottom: 74px;
+        }
+
+        .footer-inner-2 .HTML h2 {
+            color: #212121;
+            color: rgba(0, 0, 0, .87);
+            font-size: 14px;
+            font-weight: 500;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+
+        .footer-inner-2 .HTML ul {
+            font-weight: normal;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-inner-2 .HTML li {
+            line-height: 24px;
+            padding: 0;
+        }
+
+        .footer-inner-2 li a {
+            color: rgba(65, 132, 243, .87);
+        }
+
+        /** Archive widget. **/
+        .BlogArchive {
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .BlogArchive .widget-content {
+            display: none;
+        }
+
+        .BlogArchive h2,
+        .Label h2 {
+            color: #4184F3;
+            text-decoration: none;
+        }
+
+        .BlogArchive .hierarchy li {
+            display: inline-block;
+        }
+
+        /* Specificity needed here to override widget CSS defaults. */
+        .BlogArchive #ArchiveList ul li,
+        .BlogArchive #ArchiveList ul ul li {
+            margin: 0;
+            padding-left: 0;
+            text-indent: 0;
+        }
+
+        .BlogArchive .intervalToggle {
+            cursor: pointer;
+        }
+
+        .BlogArchive .expanded .intervalToggle .new-toggle {
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .BlogArchive .new-toggle {
+            float: right;
+            padding-top: 3px;
+            opacity: 0.87;
+        }
+
+        #ArchiveList {
+            text-transform: uppercase;
+        }
+
+        #ArchiveList .expanded>ul:last-child {
+            margin-bottom: 16px;
+        }
+
+        #ArchiveList .archivedate {
+            width: 100%;
+        }
+
+        /* Months */
+        .BlogArchive .items {
+            max-width: 150px;
+            margin-left: -4px;
+        }
+
+        .BlogArchive .expanded .items {
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .BlogArchive .items>ul {
+            float: left;
+            height: 32px;
+        }
+
+        .BlogArchive .items a {
+            padding: 0 4px;
+        }
+
+        .Label {
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .sidebar-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 12px;
+            margin-top: -1px
+        }
+
+        .Label a {
+            margin-right: 4px;
+        }
+
+        .Label .widget-content {
+            display: none;
+        }
+
+        .FollowByEmail {
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .FollowByEmail h2 {
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAALCAYAAACZIGYHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUBJREFUeNrMkSGLAlEUhb+ZB4JFi8mx2cz+ApvhRUGTcUCrNqNJDYIi+DO0GUwmQXDK2DSIoGgZcSaIjDrzwrK4ssvChj1w0733O+fdp+m6PozH4yQSCfb7Pa7r8pOi0SjJZBLP8zgej4gAIMvlMuPxmADIYrHger1+C6lUKmo+NJ/NZojb7SZDWiwWo1qtks1msW2bw+HwZdkwDHq9HvV6nel0SqvVYrvdIh6Ph3Qch+VyqRYLhQJSSjRNw7IsfN9XgGKxSLfbJZfL0e/3aTabrFYr7vc7IujLcOh8PqunrNdr0uk0pVKJVCpFJBJRgEajweVyod1uMxgM2O12BAGUgRbU8DV2JpOhVquRz+cRQii3+XxOp9NRN3jVR5LPOp1OjEYjlSL8hclkgmmabDabt4d+m+S30vkD/R/IU4ABAPTZgnZdmG/PAAAAAElFTkSuQmCC");
+            background-repeat: no-repeat;
+            background-position: 0 50%;
+            text-indent: 30px;
+        }
+
+        .FollowByEmail .widget-content {
+            display: none;
+        }
+
+        .searchBox input {
+            border: 1px solid #eee;
+            color: #212121;
+            color: rgba(0, 0, 0, .87);
+            font-size: 14px;
+            padding: 8px 8px 8px 40px;
+            width: 164px;
+            font-family: Roboto, sans-serif;
+            background: url("https://www.gstatic.com/images/icons/material/system/1x/search_grey600_24dp.png") 8px center no-repeat;
+        }
+
+        .searchBox ::-webkit-input-placeholder {
+            /* WebKit, Blink, Edge */
+            color: rgba(0, 0, 0, .54);
+        }
+
+        .searchBox :-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #000;
+            opacity: 0.54;
+        }
+
+        .searchBox ::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #000;
+            opacity: 0.54;
+        }
+
+        .searchBox :-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #757575;
+        }
+
+        .widget-item-control {
+            margin-top: 0px;
+        }
+
+        .section {
+            margin: 0;
+            padding: 0;
+        }
+
+        #sidebar-top {
+            border: 1px solid #eee;
+        }
+
+        #sidebar-top>div {
+            margin: 16px 0;
+        }
+
+        .widget ul {
+            line-height: 1.6;
+        }
+
+        /*main post*/
+        .post {
+            margin-bottom: 30px;
+        }
+
+        #main .post .title {
+            margin: 0;
+        }
+
+        #main .post .title a {
+            color: #212121;
+            color: rgba(0, 0, 0, .87);
+            font-weight: normal;
+            font-size: 24px;
+        }
+
+        #main .post .title a:hover {
+            text-decoration: none;
+            color: #4184F3;
+        }
+
+        .message,
+        #main .post .post-header {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main .post .post-header .caption,
+        #main .post .post-header .labels-caption,
+        #main .post .post-footer .caption,
+        #main .post .post-footer .labels-caption {
+            color: #444;
+            font-weight: 500;
+        }
+
+        #main .tr-caption-container td {
+            text-align: left;
+        }
+
+        #main .post .tr-caption {
+            color: #757575;
+            color: rgba(0, 0, 0, .54);
+            display: block;
+            max-width: 560px;
+            padding-bottom: 20px;
+        }
+
+        #main .post .tr-caption-container {
+            line-height: 24px;
+            margin: -1px 0 0 0 !important;
+            padding: 4px 0;
+            text-align: left;
+        }
+
+        #main .post .post-header .published {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .post-header .publishdate {
+            font-size: 17px;
+            font-weight: normal;
+            color: #757575;
+            color: rgba(0, 0, 0, .54);
+        }
+
+        #main .post .post-footer {
+            font-size: 12px;
+            padding-bottom: 21px;
+        }
+
+        .label-footer {
+            margin-bottom: 12px;
+            margin-top: 12px;
+        }
+
+        .comment-img {
+            margin-right: 16px;
+            opacity: 0.54;
+            vertical-align: middle;
+        }
+
+        #main .post .post-header .published {
+            margin-bottom: 40px;
+            margin-top: -2px;
+        }
+
+        .post .post-content {
+            color: #212121;
+            color: rgba(0, 0, 0, .87);
+            font-size: 17px;
+            margin: 25px 0 36px 0;
+            line-height: 32px;
+        }
+
+        .post-body .post-content ul,
+        .post-body .post-content ol {
+            margin: 16px 0;
+            padding: 0 48px;
+        }
+
+        .post-summary {
+            display: none;
+        }
+
+        /* Another old-style caption. */
+        .post-content div i,
+        .post-content div+i {
+            font-size: 14px;
+            font-style: normal;
+            color: #757575;
+            color: rgba(0, 0, 0, .54);
+            display: block;
+            line-height: 24px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        /* Another old-style caption (with link) */
+        .post-content a>i {
+            color: #4184F3 !important;
+        }
+
+        /* Old-style captions for images. */
+        .post-content .separator+div:not(.separator) {
+            margin-top: -16px;
+        }
+
+        /* Capture section headers. */
+        .post-content br+br+b,
+        .post-content .space+.space+b,
+        .post-content .separator+b {
+            display: inline-block;
+            margin-bottom: 8px;
+            margin-top: 24px;
+        }
+
+        .post-content li {
+            line-height: 32px;
+        }
+
+        /* Override all post images/videos to left align. */
+        .post-content .separator,
+        .post-content>div {
+            text-align: left;
+        }
+
+        .post-content .separator>a,
+        .post-content .separator>span {
+            margin-left: 0 !important;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            width: auto;
+        }
+
+        .post-content .tr-caption-container img {
+            margin-bottom: 12px;
+        }
+
+        .post-content iframe,
+        .post-content embed {
+            max-width: 100%;
+        }
+
+        .post-content .carousel-container {
+            margin-bottom: 48px;
+        }
+
+        #main .post-content b {
+            font-weight: 500;
+        }
+
+        /* These are the main paragraph spacing tweaks. */
+        #main .post-content br {
+            content: ' ';
+            display: block;
+            padding: 4px;
+        }
+
+        .post-content .space {
+            display: block;
+            height: 8px;
+        }
+
+        .post-content iframe+.space,
+        .post-content iframe+br {
+            padding: 0 !important;
+        }
+
+        #main .post .jump-link {
+            margin-bottom: 10px;
+        }
+
+        .post-content img,
+        .post-content iframe {
+            margin: 30px 0 20px 0;
+        }
+
+        .post-content>img:first-child,
+        .post-content>iframe:first-child {
+            margin-top: 0;
+        }
+
+        .col-right .section {
+            padding: 0 16px;
+        }
+
+        #aside {
+            background: #fff;
+            border: 1px solid #eee;
+            border-top: 0;
+        }
+
+        #aside .widget {
+            margin: 0;
+        }
+
+        #aside .widget h2,
+        #ArchiveList .toggle+a.post-count-link {
+            color: #212121;
+            color: rgba(0, 0, 0, .87);
+            font-weight: 400 !important;
+            margin: 0;
+        }
+
+        #ArchiveList .toggle {
+            float: right;
+        }
+
+        #ArchiveList .toggle .material-icons {
+            padding-top: 4px;
+        }
+
+        #sidebar .tab {
+            cursor: pointer;
+        }
+
+        #sidebar .tab .arrow {
+            display: inline-block;
+            float: right;
+        }
+
+        #sidebar .tab .icon {
+            display: inline-block;
+            vertical-align: top;
+            height: 24px;
+            width: 24px;
+            margin-right: 13px;
+            margin-left: -1px;
+            margin-top: 1px;
+            color: #757575;
+            color: rgba(0, 0, 0, .54);
+        }
+
+        #sidebar .widget-content> :first-child {
+            padding-top: 8px;
+        }
+
+        #sidebar .active .tab .arrow {
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        #sidebar .arrow {
+            color: #757575;
+            color: rgba(0, 0, 0, .54);
+        }
+
+        #sidebar .widget h2 {
+            font-size: 14px;
+            line-height: 24px;
+            display: inline-block;
+        }
+
+        #sidebar .widget .BlogArchive {
+            padding-bottom: 8px;
+        }
+
+        #sidebar .widget {
+            border-bottom: 1px solid #eee;
+            box-shadow: 0px 1px 0 white;
+            margin-bottom: 0;
+            padding: 14px 0;
+            min-height: 20px;
+        }
+
+        #sidebar .widget:last-child {
+            border-bottom: none;
+            box-shadow: none;
+            margin-bottom: 0;
+        }
+
+        #sidebar ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        #sidebar ul li {
+            list-style: none;
+            padding: 0;
+        }
+
+        #sidebar ul li a {
+            line-height: 32px;
+        }
+
+        #sidebar .archive {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAYCAYAAADzoH0MAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE1JREFUeNpiNDY23s9AAWBioBCwYBM8c+YMVsUmJibEGYBNMS5DaeMFfDYSZQA2v9I3FrB5AZeriI4FmnrBccCT8mhmGs1MwyAzAQQYAKEWG9zm9QFEAAAAAElFTkSuQmCC");
+            height: 24px;
+            line-height: 24px;
+            padding-left: 30px;
+        }
+
+        #sidebar .labels {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUxJREFUeNpiNDY23s9AAMycOfM7UF05kHkZmzwTMkdSUhKrIcXFxZy3bt3qBjIN8RrS09PDsHnzZjCNDr58+cKQlpbGDjSoHcg1w2oIyAUODg5gARCNzUVIBrUCuVYYhjx//pzhwIEDYAEQDeJjA1CDWIAGNQK59jBxRuSABbkAlwHIgIeHh2HWrFn/1NTU2oDcvSgBS4wBSC5iArqoCsj1YGIgEyAZVMoEchqlBjEB/cZAiUHg2AEGznpKDAImxOeM////B4VLKtBvEUCngZ1ILKivr3/u6+ubBzJAGZQ9gC5aQoqLgAY8BhkAZL4BuQQkxgXE34A4BuiiZEIuAhrwEGhAEZD5DpzYoIaA2UAM4kQADUrHZRDUgAIg8wO2XAwzbQXQa5OweQ1owB10AyA6gS7BgX1u3ry5397eHow3bdo0EyjGi00tQIABANPgyAH1q1eaAAAAAElFTkSuQmCC");
+            height: 20px;
+            line-height: 20px;
+            padding-left: 30px;
+        }
+
+        #sidebar .rss a {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAX5JREFUeNqsVDGSgkAQHL2rIiIikohIc/EBRkbwAIwuwgfwAXiAD9AHSI7kEkECRCb6AIyINDLx7K0aa6kT7uq0q7YYtnZ7umdnt7darXbr9Zpegeu61DNNc0dvwCcH4/GYJpMJnc9nOhwOVJbl/4hAAokMECZJQtvt9k+kH7qufyEYDAakqqqYxFdRFBqNRmTbNg2HQ0rTlK7XayvR0xqBdDqdkuM4dE/0ULhYLOh4PHYrknG5XGi/31MYhuL/nkwonM1mlGUZ1XXdrsiyLGEDhY7juJEZ1u5tIixDGdYhmYw+B7CAzPP5nDabjdgIAgCksMX1832/3drtdqPT6SQWapomiGEFNkDEdpDMMAzK81ys/7XYy+XyoQgq2WoURSIJ2iIIgp/WZCCTvFm2wgeAU31aI3Q2GhIDMeB53qPYPIcm5VrxXIOIOxsDMStjVawAc1VViRgN22lNBiuQN3GR+SY07hpOoStmFQAKXRRFY93bnpG+fONfedi+BRgAbkS8Fxp7QQIAAAAASUVORK5CYII=");
+        }
+
+        #sidebar .subscription a {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAALCAYAAACZIGYHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUBJREFUeNrMkSGLAlEUhb+ZB4JFi8mx2cz+ApvhRUGTcUCrNqNJDYIi+DO0GUwmQXDK2DSIoGgZcSaIjDrzwrK4ssvChj1w0733O+fdp+m6PozH4yQSCfb7Pa7r8pOi0SjJZBLP8zgej4gAIMvlMuPxmADIYrHger1+C6lUKmo+NJ/NZojb7SZDWiwWo1qtks1msW2bw+HwZdkwDHq9HvV6nel0SqvVYrvdIh6Ph3Qch+VyqRYLhQJSSjRNw7IsfN9XgGKxSLfbJZfL0e/3aTabrFYr7vc7IujLcOh8PqunrNdr0uk0pVKJVCpFJBJRgEajweVyod1uMxgM2O12BAGUgRbU8DV2JpOhVquRz+cRQii3+XxOp9NRN3jVR5LPOp1OjEYjlSL8hclkgmmabDabt4d+m+S30vkD/R/IU4ABAPTZgnZdmG/PAAAAAElFTkSuQmCC");
+        }
+
+        #sidebar-bottom {
+            background: #f5f5f5;
+            border-top: 1px solid #eee;
+        }
+
+        #sidebar-bottom .widget {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        #sidebar-bottom>div:last-child {
+            border-bottom: 0;
+        }
+
+        #sidebar-bottom .text {
+            line-height: 20px;
+        }
+
+        /* Home, forward, and backward pagination. */
+        .blog-pager {
+            border-top: 1px #e0e0e0 solid;
+            padding-top: 10px;
+            margin-top: 15px;
+            text-align: right !important;
+        }
+
+        #blog-pager {
+            margin-botom: 0;
+            margin-top: -14px;
+            padding: 16px 0 0 0;
+        }
+
+        #blog-pager a {
+            display: inline-block;
+        }
+
+        .blog-pager i.disabled {
+            opacity: 0.2 !important;
+        }
+
+        .blog-pager i {
+            color: black;
+            margin-left: 16px;
+            opacity: 0.54;
+        }
+
+        .blog-pager i:hover,
+        .blog-pager i:active {
+            opacity: 0.87;
+        }
+
+        #blog-pager-older-link,
+        #blog-pager-newer-link {
+            float: none;
+        }
+
+        /* Sidebar follow buttons. */
+        .followgooglewrapper {
+            padding: 12px 0 0 0;
+        }
+
+        .loading {
+            visibility: hidden;
+        }
+
+        .detail-page .post-footer .cmt_iframe_holder {
+            padding-top: 40px !important;
+        }
+
+        /** Desktop **/
+        @media (max-width: 900px) {
+            .col-right {
+                display: none;
+            }
+
+            .col-main {
+                margin-right: 0;
+                min-width: initial;
+            }
+
+            .footer-outer {
+                display: none;
+            }
+
+            .cols-wrapper {
+                min-width: initial;
+            }
+
+            .google-footer-outer {
+                background-color: #f5f5f5;
+            }
+        }
+
+        /** Tablet **/
+        @media (max-width: 712px) {
+
+            .header-outer,
+            .cols-wrapper,
+            .footer-outer,
+            .google-footer-outer {
+                padding: 0 40px;
+            }
+        }
+
+        /* An extra breakpoint accommodating for long blog titles. */
+        @media (max-width: 600px) {
+            .header-left {
+                height: 100%;
+                top: inherit;
+                margin-top: 0;
+                -webkit-transform: initial;
+                transform: initial;
+            }
+
+            .header-title {
+                margin-top: 60px;
+            }
+
+            .header-inner .google-logo {
+                height: 40px;
+                margin-top: 3px;
+            }
+        }
+
+        /** Mobile/small desktop window; also landscape. **/
+        @media (max-width: 480px),
+        (max-height: 480px) {
+
+            .header-outer,
+            .cols-wrapper,
+            .footer-outer,
+            .google-footer-outer {
+                padding: 0 16px;
+            }
+
+            .cols-wrapper {
+                margin-top: 0;
+            }
+
+            .post-header .publishdate,
+            .post .post-content {
+                font-size: 16px;
+            }
+
+            .post .post-content {
+                line-height: 28px;
+                margin-bottom: 30px;
+            }
+
+            .post {
+                margin-top: 30px;
+            }
+
+            .byline-author {
+                display: block;
+                font-size: 12px;
+                line-height: 24px;
+                margin-top: 6px;
+            }
+
+            #main .post .title a {
+                font-weight: 500;
+                color: #4c4c4c;
+                color: rgba(0, 0, 0, .70);
+            }
+
+            #main .post .post-header {
+                padding-bottom: 12px;
+            }
+
+            #main .post .post-header .published {
+                margin-bottom: -8px;
+                margin-top: 3px;
+            }
+
+            .post .read-more {
+                display: block;
+                margin-top: 14px;
+            }
+
+            .post .tr-caption {
+                font-size: 12px;
+            }
+
+            #main .post .title a {
+                font-size: 20px;
+                line-height: 30px;
+            }
+
+            .post-content iframe {
+                /* iframe won't keep aspect ratio when scaled down. */
+                max-height: 240px;
+            }
+
+            .post-content .separator img,
+            .post-content .tr-caption-container img,
+            .post-content iframe {
+                margin-left: -16px;
+                max-width: inherit;
+                width: calc(100% + 32px);
+            }
+
+            .post-content table,
+            .post-content td {
+                width: 100%;
+            }
+
+            #blog-pager {
+                margin: 0;
+                padding: 16px 0;
+            }
+
+            /** List page tweaks. **/
+            .list-page .post-original {
+                display: none;
+            }
+
+            .list-page .post-summary {
+                display: block;
+            }
+
+            .list-page .comment-container {
+                display: none;
+            }
+
+            .list-page #blog-pager {
+                padding-top: 0;
+                border: 0;
+                margin-top: -8px;
+            }
+
+            .list-page .label-footer {
+                display: none;
+            }
+
+            .list-page #main .post .post-footer {
+                border-bottom: 1px solid #eee;
+                margin: -16px 0 0 0;
+                padding: 0 0 20px 0;
+            }
+
+            .list-page .post .share {
+                display: none;
+            }
+
+            /** Detail page tweaks. **/
+            .detail-page .post-footer .cmt_iframe_holder {
+                padding-top: 32px !important;
+            }
+
+            .detail-page .label-footer {
+                margin-bottom: 0;
+            }
+
+            .detail-page #main .post .post-footer {
+                padding-bottom: 0;
+            }
+
+            .detail-page #comments {
+                display: none;
+            }
+        }
+
+        [data-about-pullquote],
+        [data-is-preview],
+        [data-about-syndication] {
+            display: none;
+        }
+    </style>
+    <noscript>
+        <style>
+            .loading {
+                visibility: visible
+            }
+        </style>
+    </noscript>
+    <script type='text/javascript'>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-34322147-30', 'auto', 'blogger');
+        ga('blogger.send', 'pageview');
+    </script>
+    <link
+        href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=1109038746813902833&amp;zx=96b97da5-563f-41cb-bb5a-05d22db4215d'
+        media='none' onload='if(media!=&#39;all&#39;)media=&#39;all&#39;' rel='stylesheet' /><noscript>
+        <link
+            href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=1109038746813902833&amp;zx=96b97da5-563f-41cb-bb5a-05d22db4215d'
+            rel='stylesheet' />
+    </noscript>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <div class='header-outer'>
+        <div class='header-inner'>
+            <div class='section' id='header'>
+                <div class='widget Header' data-version='1' id='Header1'>
+                    <div class='header-left'>
+                        <div class='header-title'>
+                            <a class='google-logo' href='https://youtube-eng.googleblog.com/'>
+                                <img height="30"
+                                    src="https://lh6.googleusercontent.com/proxy/KiGxe5lvyYa39CNwuIwyC2vexcdi01RAKLw0Y--i5TPtyS2XIRmAVQZ54UXCR5EnobZztmUhLFW88abKAQOSZSXLdIMoHswS37R2llcJGjzJvpRrmeMRkf1B45apxbK98g=s0-d">
+                            </a>
+                            <a href='/.'>
+                                <h2>
+                                    Engineering and Developers Blog
+                                </h2>
+                            </a>
+                        </div>
+                        <div class='header-desc'>
+                            What's happening with engineering and developers at YouTube
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- all content wrapper start -->
+    <div class='cols-wrapper loading'>
+        <div class='col-main-wrapper'>
+            <div class='col-main'>
+                <div class='section' id='main'>
+                    <div class='widget Blog' data-version='1' id='Blog1'>
+                        <div class='post' data-id='5087154068109238670' itemscope=''
+                            itemtype='http://schema.org/BlogPosting'>
+                            <h2 class='title' itemprop='name'>
+                                <a href='https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html'
+                                    itemprop='url' title='Control your 360 videos with the YouTube IFrame Player API'>
+                                    Control your 360 videos with the YouTube IFrame Player API
+                                </a>
+                            </h2>
+                            <div class='post-header'>
+                                <div class='published'>
+                                    <span class='publishdate' itemprop='datePublished'>
+                                        Wednesday, August 1, 2018
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post-body'>
+                                <div class='post-content' itemprop='articleBody'>
+                                    <script type='text/template'>
+                                        Ever since we launched 
+                                        <a href="https://youtube-creators.googleblog.com/2015/03/a-new-way-to-see-and-share-your-world.html" target="_blank">360&#176; videos</a>
+                                            in 2015, we've been exploring ways to unleash the full potential of this new video format, including 
+                                        <a href="https://youtube-creators.googleblog.com/2015/11/youtube-presses-play-on-virtual-reality.html" target="_blank">
+                                            Cardboard mode
+                                        </a>, 
+                                        <a href="https://youtube.googleblog.com/2016/04/one-step-closer-to-reality-introducing.html" target="_blank">
+                                            360&#176; live streams
+                                        </a>, and 
+                                        <a href="https://youtube-eng.googleblog.com/2017/03/improving-vr-videos.html" target="_blank">
+                                            improved video quality
+                                        </a>. We are excited to share with you some new APIs for controlling 360&#176; videos in embedded videos.
+                                        <br />
+                            <br />
+                            The <a href="https://developers.google.com/youtube/iframe_api_reference#Spherical_Video_Controls" target="_blank">Spherical Video Control API</a> gives developers full control over the user&#8217;s perspective when using the YouTube <a href="https://developers.google.com/youtube/iframe_api_reference" target="_blank">IFrame Player SDK</a>. Developers can get and set the view&#8217;s current yaw, pitch, roll, and field-of-view. This opens the door to many different scenarios such as narration-driven tours, custom controllers, multi-display installations all via JavaScript.<br />
+                            <br />
+                            <style>
+                            #alienButton { 
+                                position: relative; 
+                                display:block; 
+                                margin: 15px auto; 
+                                border-width: 0; 
+                                outline: none; 
+                                border-radius: 10px; 
+                                box-shadow: 0 3px 6px rgba(0, 0, 0, .24); 
+                                background-color: #f00; 
+                                color: #fff; 
+                                transition: background-color .2s; 
+                            } 
+                            #alienButton:hover { 
+                                background-color: #F44336; 
+                            } 
+                            #alienButton:active { 
+                                box-shadow: 0 2px 6px rgba(0, 0, 0, .24); 
+                                background-color: #EF9A9A; 
+                            } 
+                            #alienButton:disabled { 
+                                box-shadow: 0 1px 3px rgba(0, 0, 0, .24); 
+                                background-color: #9E9E9E; 
+                            } 
+                            #alienButton span { 
+                                display: block; 
+                                padding: 12px 24px; 
+                                font-size: 20px;
+                            }
+                            </style>
+
+
+                            <br />
+                            <div style="width: 100%;">
+                            <iframe frameborder="0" height="350" id="alien-iframe-embed" onload="(function() {if(window.location.search.indexOf('m=1')&gt;=0){return;} jsScript = document.getElementById('alien-js-script'); eval(jsScript.innerHTML);})()" src="https://www.youtube.com/embed/G-XZhKqQAHU?enablejsapi=1" style="border: 0px;" width="100%"></iframe>
+                            <button disabled="" id="alienButton"><span id="alienButtonText">Alien!!!</span></button> 
+
+
+                            <script id="alien-js-script" type="text/javascript">
+                                // Initialize the iframe embed's API. 
+                                const tag = document.createElement('script');
+                                tag.src = "https://www.youtube.com/iframe_api";
+                                const firstScriptTag = document.getElementsByTagName('script')[0];
+                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                                let ytplayer;
+                                window.onYouTubeIframeAPIReady = function() {
+                                    ytplayer = new YT.Player('alien-iframe-embed', {
+                                        events: {
+                                            'onStateChange': onPlayerStateChange,
+                                        },
+                                    });
+                                }
+
+                                // Disable the button by default. 
+                                // When video goes into PLAYING state, enable the button. 
+                                const alienButton = document.getElementById("alienButton");
+                                alienButton.disabled = true;
+                                window.onPlayerStateChange = function(event) {
+                                    if (event.data == 1) {
+                                        alienButton.disabled = false;
+                                    }
+                                }
+
+                                // This function constructs a polynomial using a list of input weights.
+                                function poly(weights) {
+                                    return function(t) {
+                                        let val = 0;
+                                        let x = 1;
+                                        for (let w of weights) {
+                                            val += x * w;
+                                            x *= t;
+                                        }
+                                        return val;
+                                    }
+                                }
+
+                                // These are hand fitted polynomials that tracks the movement of the alien
+                                // throughout the video.
+                                // For yaw, we had to change between several different polynomial to keep
+                                // things performant. 
+                                // For pitch, a single polynomial over the entire duration of the video
+                                // was sufficient. 
+                                const yawTrack = function() {
+                                    const yaw11 = poly([-3.04631909e+03, 1.19219406e+03, -1.88145883e+02,
+                                        1.55743418e+01, -7.41740578e-01, 2.10484076e-02,
+                                        -3.51373142e-04, 3.18408210e-06, -1.20830410e-08
+                                    ]);
+                                    const yaw58 = poly([2.14359903e+08, -1.95479428e+07, 7.41961802e+05,
+                                        -1.50035469e+04, 1.70475072e+02, -1.03194757e+00,
+                                        2.60000087e-03
+                                    ]);
+                                    const yaw74 = poly([-1.46264739e+06, 9.00087573e+04, -2.28526587e+03,
+                                        3.06432819e+01, -2.28920640e-01, 9.03520918e-04,
+                                        -1.47226423e-06
+                                    ]);
+                                    const yaw129 = poly([1.39044612e+05, -3.12771539e+03, 2.33594151e+01,
+                                        -5.81151009e-02
+                                    ]);
+                                    const yaw146 = poly([5.35468540e+04, -9.57843251e+02, 4.42486931e-01,
+                                        9.96639354e-02, -8.72828330e-04, 3.01098624e-06,
+                                        -3.82035076e-09
+                                    ]);
+                                    const yaw209 = poly([-1.00415969e+05, -2.56340987e+03, 7.66464454e+01,
+                                        -6.85017122e-01, 2.88569970e-03, -5.93185145e-06,
+                                        4.80999119e-09
+                                    ]);
+                                    return function(t) {
+                                        let val;
+                                        if (t < 11) {
+                                            val = 0;
+                                        } else if (t < 58) {
+                                            val = yaw11(t);
+                                        } else if (t < 74) {
+                                            val = yaw58(t);
+                                        } else if (t < 129) {
+                                            val = yaw74(t);
+                                        } else if (t < 146) {
+                                            val = yaw129(t);
+                                        } else if (t < 209) {
+                                            val = yaw146(t);
+                                        } else {
+                                            val = yaw209(t);
+                                        }
+                                        return (val % 360 + 360) % 360;
+                                    };
+                                }();
+                                const pitchTrack = poly([-1.45284489e+00, 1.60253082e+00, -2.48931512e-01,
+                                    1.19719311e-02, -2.92248673e-04, 4.13528625e-06,
+                                    -3.56801619e-08, 1.89765163e-10, -6.05548401e-13,
+                                    1.06076048e-15, -7.82844242e-19
+                                ])
+
+                                // When the button is clicked, we starts an animation motion. 
+                                // It essentially "drags" the view toward the target using
+                                // a predefined spring constant. 
+                                alienButton.onclick = function() {
+                                    const springConstant = -0.8;
+                                    let previousYaw = null;
+                                    let previousPitch = null;
+                                    let initialTime = null;
+                                    let animate = false;
+
+                                    function onAnimationFrame() {
+                                        const currentSetting = ytplayer.getSphericalProperties();
+                                        const currentYaw = currentSetting.yaw;
+                                        const currentPitch = currentSetting.pitch;
+                                        const currentTime = performance.now();
+                                        const videoTime = ytplayer.getCurrentTime();
+
+                                        if (!initialTime) {
+                                            if (currentSetting.yaw != null) {
+                                                initialTime = currentTime;
+                                                animate = true;
+                                                alienButton.disabled = true;
+                                            }
+                                        }
+
+                                        if (animate) {
+                                            const targetYaw = yawTrack(videoTime);
+                                            const targetPitch = pitchTrack(videoTime);
+                                            let yawDiff = targetYaw - currentYaw;
+                                            if (yawDiff > 180) {
+                                                yawDiff -= 360;
+                                            } else if (yawDiff < -180) {
+                                                yawDiff += 360;
+                                            }
+                                            const pitchDiff = targetPitch - currentPitch;
+
+                                            if (Math.max(Math.abs(yawDiff), Math.abs(pitchDiff)) < 1) {
+                                                animate = false;
+                                            }
+
+                                            deltaTime = (currentTime - initialTime) / 1000;
+
+                                            let newYaw = targetYaw - yawDiff * Math.exp(springConstant * deltaTime);
+                                            newYaw = (newYaw % 360 + 360) % 360;
+                                            let newPitch = targetPitch - pitchDiff * Math.exp(springConstant * deltaTime);
+
+                                            ytplayer.setSphericalProperties({
+                                                yaw: newYaw,
+                                                pitch: newPitch,
+                                                // Keeps the demo working on phones.
+                                                // In practical use, calling this once is sufficient.
+                                                // We are just piggybacking it here to keep things simple. 
+                                                enableOrientationSensor: false
+                                            });
+                                        }
+
+                                        if (animate) {
+                                            requestAnimationFrame(onAnimationFrame);
+                                        } else {
+                                            alienButton.disabled = false;
+                                            initialTime = null;
+                                        }
+                                    }
+
+                                    return onAnimationFrame;
+                                }();
+                            </script>
+
+                                    <span itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                                        <meta content='https://plus.google.com/116899029375914044550' itemprop='url' />
+                                    </span>
+                                    </script>
+                                    <noscript>
+                                        <style>
+                                            #alienButton {
+                                                position: relative;
+                                                display: block;
+                                                margin: 15px auto;
+                                                border-width: 0;
+                                                outline: none;
+                                                border-radius: 10px;
+                                                box-shadow: 0 3px 6px rgba(0, 0, 0, .24);
+                                                background-color: #f00;
+                                                color: #fff;
+                                                transition: background-color .2s;
+                                            }
+
+                                            #alienButton:hover {
+                                                background-color: #F44336;
+                                            }
+
+                                            #alienButton:active {
+                                                box-shadow: 0 2px 6px rgba(0, 0, 0, .24);
+                                                background-color: #EF9A9A;
+                                            }
+
+                                            #alienButton:disabled {
+                                                box-shadow: 0 1px 3px rgba(0, 0, 0, .24);
+                                                background-color: #9E9E9E;
+                                            }
+
+                                            #alienButton span {
+                                                display: block;
+                                                padding: 12px 24px;
+                                                font-size: 20px;
+                                            }
+                                        </style>
+
+
+                                        <br />
+                                        <div style="width: 100%;">
+                                            <iframe frameborder="0" height="350" id="alien-iframe-embed"
+                                                onload="(function() {if(window.location.search.indexOf('m=1')&gt;=0){return;} jsScript = document.getElementById('alien-js-script'); eval(jsScript.innerHTML);})()"
+                                                src="https://www.youtube.com/embed/G-XZhKqQAHU?enablejsapi=1"
+                                                style="border: 0px;" width="100%"></iframe>
+                                            <button disabled="" id="alienButton"><span
+                                                    id="alienButtonText">Alien!!!</span></button>
+                                        </div>
+
+                                        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"></link>
+                                        <script id="alien-js-script" type="text/javascript">
+                                            // Initialize the iframe embed's API. 
+                                            const tag = document.createElement('script');
+                                            tag.src = "https://www.youtube.com/iframe_api";
+                                            const firstScriptTag = document.getElementsByTagName('script')[0];
+                                            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                                            let ytplayer;
+                                            window.onYouTubeIframeAPIReady = function () {
+                                                ytplayer = new YT.Player('alien-iframe-embed', {
+                                                    events: {
+                                                        'onStateChange': onPlayerStateChange,
+                                                    },
+                                                });
+                                            }
+
+                                            // Disable the button by default. 
+                                            // When video goes into PLAYING state, enable the button. 
+                                            const alienButton = document.getElementById("alienButton");
+                                            alienButton.disabled = true;
+                                            window.onPlayerStateChange = function (event) {
+                                                if (event.data == 1) {
+                                                    alienButton.disabled = false;
+                                                }
+                                            }
+
+                                            // This function constructs a polynomial using a list of input weights.
+                                            function poly(weights) {
+                                                return function (t) {
+                                                    let val = 0;
+                                                    let x = 1;
+                                                    for (let w of weights) {
+                                                        val += x * w;
+                                                        x *= t;
+                                                    }
+                                                    return val;
+                                                }
+                                            }
+
+                                            // These are hand fitted polynomials that tracks the movement of the alien
+                                            // throughout the video.
+                                            // For yaw, we had to change between several different polynomial to keep
+                                            // things performant. 
+                                            // For pitch, a single polynomial over the entire duration of the video
+                                            // was sufficient. 
+                                            const yawTrack = function () {
+                                                const yaw11 = poly([-3.04631909e+03, 1.19219406e+03, -1.88145883e+02,
+                                                    1.55743418e+01, -7.41740578e-01, 2.10484076e-02,
+                                                -3.51373142e-04, 3.18408210e-06, -1.20830410e-08
+                                                ]);
+                                                const yaw58 = poly([2.14359903e+08, -1.95479428e+07, 7.41961802e+05,
+                                                    -1.50035469e+04, 1.70475072e+02, -1.03194757e+00,
+                                                    2.60000087e-03
+                                                ]);
+                                                const yaw74 = poly([-1.46264739e+06, 9.00087573e+04, -2.28526587e+03,
+                                                    3.06432819e+01, -2.28920640e-01, 9.03520918e-04,
+                                                -1.47226423e-06
+                                                ]);
+                                                const yaw129 = poly([1.39044612e+05, -3.12771539e+03, 2.33594151e+01,
+                                                    -5.81151009e-02
+                                                ]);
+                                                const yaw146 = poly([5.35468540e+04, -9.57843251e+02, 4.42486931e-01,
+                                                    9.96639354e-02, -8.72828330e-04, 3.01098624e-06,
+                                                    -3.82035076e-09
+                                                ]);
+                                                const yaw209 = poly([-1.00415969e+05, -2.56340987e+03, 7.66464454e+01,
+                                                -6.85017122e-01, 2.88569970e-03, -5.93185145e-06,
+                                                    4.80999119e-09
+                                                ]);
+                                                return function (t) {
+                                                    let val;
+                                                    if (t < 11) {
+                                                        val = 0;
+                                                    } else if (t < 58) {
+                                                        val = yaw11(t);
+                                                    } else if (t < 74) {
+                                                        val = yaw58(t);
+                                                    } else if (t < 129) {
+                                                        val = yaw74(t);
+                                                    } else if (t < 146) {
+                                                        val = yaw129(t);
+                                                    } else if (t < 209) {
+                                                        val = yaw146(t);
+                                                    } else {
+                                                        val = yaw209(t);
+                                                    }
+                                                    return (val % 360 + 360) % 360;
+                                                };
+                                            }();
+                                            const pitchTrack = poly([-1.45284489e+00, 1.60253082e+00, -2.48931512e-01,
+                                                1.19719311e-02, -2.92248673e-04, 4.13528625e-06,
+                                            -3.56801619e-08, 1.89765163e-10, -6.05548401e-13,
+                                                1.06076048e-15, -7.82844242e-19
+                                            ])
+
+                                            // When the button is clicked, we starts an animation motion. 
+                                            // It essentially "drags" the view toward the target using
+                                            // a predefined spring constant. 
+                                            alienButton.onclick = function () {
+                                                const springConstant = -0.8;
+                                                let previousYaw = null;
+                                                let previousPitch = null;
+                                                let initialTime = null;
+                                                let animate = false;
+
+                                                function onAnimationFrame() {
+                                                    const currentSetting = ytplayer.getSphericalProperties();
+                                                    const currentYaw = currentSetting.yaw;
+                                                    const currentPitch = currentSetting.pitch;
+                                                    const currentTime = performance.now();
+                                                    const videoTime = ytplayer.getCurrentTime();
+
+                                                    if (!initialTime) {
+                                                        if (currentSetting.yaw != null) {
+                                                            initialTime = currentTime;
+                                                            animate = true;
+                                                            alienButton.disabled = true;
+                                                        }
+                                                    }
+
+                                                    if (animate) {
+                                                        const targetYaw = yawTrack(videoTime);
+                                                        const targetPitch = pitchTrack(videoTime);
+                                                        let yawDiff = targetYaw - currentYaw;
+                                                        if (yawDiff > 180) {
+                                                            yawDiff -= 360;
+                                                        } else if (yawDiff < -180) {
+                                                            yawDiff += 360;
+                                                        }
+                                                        const pitchDiff = targetPitch - currentPitch;
+
+                                                        if (Math.max(Math.abs(yawDiff), Math.abs(pitchDiff)) < 1) {
+                                                            animate = false;
+                                                        }
+
+                                                        deltaTime = (currentTime - initialTime) / 1000;
+
+                                                        let newYaw = targetYaw - yawDiff * Math.exp(springConstant * deltaTime);
+                                                        newYaw = (newYaw % 360 + 360) % 360;
+                                                        let newPitch = targetPitch - pitchDiff * Math.exp(springConstant * deltaTime);
+
+                                                        ytplayer.setSphericalProperties({
+                                                            yaw: newYaw,
+                                                            pitch: newPitch,
+                                                            // Keeps the demo working on phones.
+                                                            // In practical use, calling this once is sufficient.
+                                                            // We are just piggybacking it here to keep things simple. 
+                                                            enableOrientationSensor: false
+                                                        });
+                                                    }
+
+                                                    if (animate) {
+                                                        requestAnimationFrame(onAnimationFrame);
+                                                    } else {
+                                                        alienButton.disabled = false;
+                                                        initialTime = null;
+                                                    }
+                                                }
+
+                                                return onAnimationFrame;
+                                            }();
+                                        </script>
+                                        <span itemprop='author' itemscope='itemscope'
+                                            itemtype='http://schema.org/Person'>
+                                            <meta content='https://plus.google.com/116899029375914044550'
+                                                itemprop='url' />
+                                        </span>
+                                    </noscript>
+                                </div>
+                            </div>
+                            <div class='share'>
+                                <span class='twitter-custom social-wrapper'
+                                    data-href='http://twitter.com/share?text=YouTube Engineering and Developers Blog:Control your 360 videos with the YouTube IFrame Player API&url=https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html&via=youtubedev'>
+                                    <img alt='Share on Twitter' height='24'
+                                        src='https://www.gstatic.com/images/icons/material/system/2x/post_twitter_black_24dp.png'
+                                        width='24' />
+                                </span>
+                                <span class='fb-custom social-wrapper'
+                                    data-href='https://www.facebook.com/sharer.php?u=https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html'>
+                                    <img alt='Share on Facebook' height='24'
+                                        src='https://www.gstatic.com/images/icons/material/system/2x/post_facebook_black_24dp.png'
+                                        width='24' />
+                                </span>
+                            </div>
+                            <div class='post-footer'>
+                                <div class='cmt_iframe_holder'
+                                    data-href='https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html'
+                                    data-viewtype='FILTERED_POSTMOD'></div>
+                                <a href='https://plus.google.com/112374322230920073195' rel='author'
+                                    style='display:none;'>
+                                    Google
+                                </a>
+                                <div class='label-footer'>
+                                    <span class='labels-caption'>
+                                        Labels:
+                                    </span>
+                                    <span class='labels'>
+                                        <a class='label'
+                                            href='https://youtube-eng.googleblog.com/search/label/YouTube%20Engineering%20%26%20Developers%20Blog'
+                                            rel='tag'>
+                                            YouTube Engineering &amp; Developers Blog
+                                        </a>
+
+                                        ,
+
+                                        <a class='label'
+                                            href='https://youtube-eng.googleblog.com/search/label/YouTube%20IFrame%20Player%20API'
+                                            rel='tag'>
+                                            YouTube IFrame Player API
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='comments' id='comments'>
+                                <a name='comments'></a>
+                                <div id='backlinks-container'>
+                                    <div id='Blog1_backlinks-container'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='blog-pager' id='blog-pager'>
+                            <a class='home-link' href='https://youtube-eng.googleblog.com/'>
+                                <i class='material-icons'>
+                                    &#59530;
+                                </i>
+                            </a>
+                            <span id='blog-pager-newer-link'>
+                                <a class='blog-pager-newer-link'
+                                    href='https://youtube-eng.googleblog.com/2018/12/add-stereo-music-or-narration-to-vr.html'
+                                    id='Blog1_blog-pager-newer-link' title='Newer Post'>
+                                    <i class='material-icons'>
+                                        &#58820;
+                                    </i>
+                                </a>
+                            </span>
+                            <span id='blog-pager-older-link'>
+                                <a class='blog-pager-older-link'
+                                    href='https://youtube-eng.googleblog.com/2018/04/making-high-quality-video-efficient.html'
+                                    id='Blog1_blog-pager-older-link' title='Older Post'>
+                                    <i class='material-icons'>
+                                        &#58824;
+                                    </i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class='clear'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='col-right'>
+            <div class='section' id='sidebar-top'>
+                <div class='widget HTML' data-version='1' id='HTML8'>
+                    <div class='widget-content'>
+                        <div class='searchBox'>
+                            <input type='text' title='Search This Blog' placeholder='Search blog ...' />
+                        </div>
+                    </div>
+                    <div class='clear'></div>
+                    <span class='widget-item-control'>
+                        <span class='item-control blog-admin'>
+                            <a class='quickedit'
+                                onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML8"));'
+                                rel='nofollow' target='configHTML8' title='Edit'>
+                                <img alt='' height='18'
+                                    src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                            </a>
+                        </span>
+                    </span>
+                    <div class='clear'></div>
+                </div>
+            </div>
+        </div>
+        <div style='clear:both;'></div>
+    </div>
+    <!-- Footer -->
+    <div class='google-footer-outer loading'>
+        <div id='google-footer'>
+            <a href='//www.google.com/'>
+                <img class='google-logo-dark' height='36'
+                    src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALgAAABICAYAAABFoT/eAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACLVJREFUeNrsXd+L20YQ3vOprdLqiMXFXE2qB7dcwEcTSB7ykIc+9A/PQx/yEMq1TWhNuYIpJriNr7XpmZ5IxFEvmW2EKs3Ornb1w50PxIFP0kiz387OzM6uhGAwGAxGP3Ho+f7x7ri1O7LdccPqZjSNA4dEHsLfaHcEFedJom93x9Xu2OyOFTcBo6sED3fHZHeMEELrkAHJF0B8Rr+gDFsZ5n0luLTQ95AXs4W06D/tjpR50xtM4CjD0y48YGB4rnyZxNOzyA7zBHr+nLnDaJLg0mo/ALekCasg3Z4XbM0ZdTEgnDPeHY8bIne+Qz2GvwyGNwsuyT218KWvIIBMcwGpLiipcolecjMxfBDchNyS1EvxLiOSIecp31q6IJ/C3yrIrMqMm4jhg+AxkdwbIO3aUO4KjqqMjCT3uaazMBhWBJfuxH3CtRfiXf66DhSRZWbmlMnNaILgZxrXJQO/eO3wORZwvwm4JUxuhheCjzVBYAbW1ces45YDSoZrFNOEE835M8FT6oyeEnws8Fz3QnBxFKPHBMem4GU+m6fPGb0leCTwWcM5B36MPgeZI01gudyDdw3hPeXfo8L/rmCUWnuMMdqUL2WqWeRbhf+twfVsO7YagZGNC79fw7OthEVtkiJ4jJzTd3KPwf3CRqhhiTu23AP5sl0/0xiwISQXpNwLIJK87mHF+U8ddzzdmgKlGzlPYjyxGJQouIhNT4k9AqWEFkqfguIvagTWbcq3KW1WE3xS3m8NtA9WS451xofwjKT5kkDoK/b6mDk5FfXr1lWDL4BofZEv2/SRsK/EHGlGdBdu8QNRb8HMCFwt7Yy3DDI/QP7fx5z3VLhdlJEIs4rKNuXXJXdxZPdB7kfCzWqwCO4V1LHgLjInX3tQ1KzCR52Cz+vDj1dydeRuS74rcvs2Pi6fT5H8OaaUQPQPYcWwRSGXyhhscn5dpAnEFMkuEZetbfkTAnlSuH4DxisE+aMGeJAQ3lFl7C4LJE6QWCaCd583ORQ1jYAwjFctal7nOs2ZZvicwvlZx+RHGrcoAwKUVX8uwcc/9TT65INeDOr5shL9LDRB6QTeIy3zwfdh3WOi6axLCEhSjXU7F3h6LqggUtvyJxpynwu8tDkD98fXApOxRj8zoZ9MnGveYVIVZKaGrkBXCY65BCYNN9NkjpKOyQ81Q79JgdxS+Jn3SDTEXRI7SWzaiSTB32oI3nU3BvMfM0urhOVYgwKhuiAfc4tM07wXwm1ZRoQYSl2NUwiu01fEAHVcpixd745FvVz4dzUUc0o8rwoLy8ZSwU6CyFx1RP5II9+1bFPEFs9HWbNLiimDXE+vCm7u1CS47cofzD3aEhVY57mxRo5zlqdt+RFC1JUH2S7bcVXg4liTMakaBZZVxiTICRoivcn1sEUBlk24JmaC6kxUbYmWoqvyfck2xZGGnDFYa9MMzkYQ1ijkCX6qidybrgePiQ0QIQqoi6qRLeqQfIoRsEHaQJLBdHOnLGetSdm/IPcymJuS1PAnbQPH0MOw/39C1vL11DiLOqIsbDI8QcHvGiLnySi2qUXBicaqUSxN5LEB0g7Jt3ENXJLPJ5S1tnaZBoWbpRqrmjRE7qHmpSmNHdQcYrEUadoh+TbBnc9ri7iycI1kzPeNcLDIvbiqXpez9Tmdq6zGREPuzECBoxrPMiI2WtvyNwhJba2wy3JZ6ky5dD1lSvmZS3e4SPA1wcf1VTFHKX+cGwZzdUYcqpvUtvwrD/InDttVlyZeAKlNN5MKbAiurHhKIPlUuJvlTCCiDjSKSCsUmCFWbGLZwCESfK07JB8LvMYWVtw0D00JEHV8Mq2HkqPbE0oHLvvK2g0o8ETg+4cfwTlZDT9JDoWygu4uQQE/ivIvtcnfPkaCqhiupz7jWOAzqL/vjtcdkv9G4MVMt+EaylfuImiPAXEUjRF3pjjaHiPPZ6If9TGGAO4ZY0am6jOCb+DQ+ZCqLkIpOIPrdNfIjnFPY6nyFut7TS/fanrziOBOKMupKw94WaLMtuVnSFt9CPrWWdJE6PeltCX432DEBoh+5Dv8RRhdis8YAv9uyq4/JAwtlEApgBe9Cw9xDD3tdk4Jn0MDfiHwPHcRPxBePCMER3GuIx7kGlv9fkZ4V9lolx2Uv4X7hEj7qJ3LDoAMGbTRMRibu4L2xQ8bgt8AyU+Q+x7nYrvDnH4iuO5LxKsYwPVbkPMvKF9Zky9wXzRfVWizi62r9X5VHf55h+WHhDjGBZ4WRhyTr6z5SlCoLMxLSpBZFsQ9F80uQFbF/6aFWi+Ev51vzzsuX+msyzuQXXjUz8zEBy+zpq9yweXAoxJW4JbYrDS6gYDqGHxPl+TKeiBfxj9/EBIElPYeOA4y8/qRQfknjvSzgRgtq0Pw/M1eQeMdOSb2Bnrhr6Led+1vcp2x7oTFHMnedFW+Ivlty062BUt74oHgSj+vHepnhunn0JJAMtBZgDI/qmGtMujRv8DDpo47zBJ8UtPOuAR/7rKn8t9AJ0tBdmBAmJ/Fu71yxp4I3qh+DhyRqbi5Y1ShVPlSb8X7bRNcfgZFl+WRGYo7uecrWq1r8X5bhmzP5OdlDwsGRm1suSxkg5rYm7ConyGQ3Zl+DgSD8V/kPwrWBMG9YcBtyShBnTLdTiHgttw7qAW7cqh/ZnmPKr/6ignOaKsdyxbsToT5UkPsW00bJjijDXficcX/JsLs6w2BwGtherdckH3w/kNXRPVI0OqJQoHX42/66IMfMj/2huRjxIidgKV/W0JS+bsstDoTeAHcrI8E5zTh/sDkqxL5rZup55/3USlswfcHf4IrQplVDgW9XFlOqnwr6pVPMMEZTuC60EttvdzbLbaZ4PsFVa3nohhO+vW+yn/ZB2fUhpysmQrzBcTSai9EszuZMcEZ1lCFVrp9zGXhm69iLyY4oxFIa178lPe12I/P2DAYDAaDwWAwGAwGg8FgMBgMBoPBYDD2Cf8IMADDRGoQTe+E9AAAAABJRU5ErkJggg=='
+                    style='margin-top: -16px;' width='92' />
+            </a>
+            <ul>
+                <li>
+                    <a href='//www.google.com/'>
+                        Google
+                    </a>
+                </li>
+                <li>
+                    <a href='//www.google.com/policies/privacy/'>
+                        Privacy
+                    </a>
+                </li>
+                <li>
+                    <a href='//www.google.com/policies/terms/'>
+                        Terms
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        //<![CDATA[
+        // Social sharing popups.
+        var postEl = document.getElementsByClassName('social-wrapper');
+        var postCount = postEl.length;
+        for (i = 0; i < postCount; i++) {
+            postEl[i].addEventListener("click", function (event) {
+                var postUrl = this.getAttribute("data-href");
+                window.open(
+                    postUrl, 'popUpWindow', 'height=500,width=500,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+            });
+        }
+      //]]>
+    </script>
+    <script type='text/javascript'>
+        //<![CDATA[
+        var BreakpointHandler = function () {
+            this.initted = false;
+            this.isHomePage = false;
+            this.isMobile = false;
+        };
+        BreakpointHandler.prototype.finalizeSummary = function (summaryHtml, lastNode) {
+            // Use $.trim for IE8 compatibility
+            summaryHtml = $.trim(summaryHtml).replace(/(<br>|\s)+$/, '');
+            if (lastNode.nodeType == 3) {
+                var lastChar = summaryHtml.slice(-1);
+                if (!lastChar.match(/[.”"?]/)) {
+                    if (!lastChar.match(/[A-Za-z]/)) {
+                        summaryHtml = summaryHtml.slice(0, -1);
+                    }
+                    summaryHtml += ' ...';
+                }
+            } else if (lastNode.nodeType == 1 && (lastNode.nodeName == 'I' || lastNode.nodeName == 'A')) {
+                summaryHtml += ' ...';
+            }
+            return summaryHtml;
+        };
+        BreakpointHandler.prototype.generateSummaryFromContent = function (content, numWords) {
+            var seenWords = 0;
+            var summaryHtml = '';
+            for (var i = 0; i < content.childNodes.length; i++) {
+                var node = content.childNodes[i];
+                var nodeText;
+                if (node.nodeType == 1) {
+                    if (node.hasAttribute('data-about-pullquote')) {
+                        continue;
+                    }
+                    nodeText = node.textContent;
+                    if (nodeText === undefined) {
+                        // innerText for IE8
+                        nodeText = node.innerText;
+                    }
+                    if (node.nodeName == 'DIV' || node.nodeName == 'B') {
+                        // Don't end early if we haven't seen enough words.
+                        if (seenWords < 10) {
+                            continue;
+                        }
+                        if (i > 0) {
+                            summaryHtml = this.finalizeSummary(summaryHtml, content.childNodes[i - 1]);
+                        }
+                        break;
+                    }
+                    summaryHtml += node.outerHTML;
+                } else if (node.nodeType == 3) {
+                    nodeText = node.nodeValue;
+                    summaryHtml += nodeText + ' ';
+                }
+                var words = nodeText.match(/\S+\s*/g);
+                if (!words) {
+                    continue;
+                }
+                var remain = numWords - seenWords;
+                if (words.length >= remain) {
+                    summaryHtml = this.finalizeSummary(summaryHtml, node);
+                    break;
+                }
+                seenWords += words.length;
+            }
+            return summaryHtml;
+        };
+        BreakpointHandler.prototype.detect = function () {
+            var match,
+                pl = /\+/g,
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query = window.location.search.substring(1);
+            var urlParams = {};
+            while (match = search.exec(query))
+                urlParams[decode(match[1])] = decode(match[2]);
+            this.isListPage = $('html').hasClass('list-page');
+            this.isMobile = urlParams['m'] === '1';
+            this.isHomePage = window.location.pathname == '/';
+        };
+        BreakpointHandler.prototype.initContent = function () {
+            var self = this;
+            $('.post').each(function (index) {
+                var body = $(this).children('.post-body')[0];
+                var content = $(body).children('.post-content')[0];
+                $(content).addClass('post-original');
+                var data = $(content).children('script').html();
+                data = self.rewriteForSSL(data);
+                // If exists, extract specified editor's preview.
+                var match = data.match(/([\s\S]+?)<div data-is-preview.+?>([\s\S]+)<\/div>/m);
+                if (match) {
+                    data = match[1];
+                }
+                // Prevent big images from loading when they aren't needed.
+                // This must be done as a pre-injection step, since image loading can't be
+                // canceled once embedded into the DOM.
+                if (self.isListPage && self.isMobile) {
+                    data = data.replace(/<(img|iframe) .+?>/g, '');
+                }
+                // Insert template to be rendered as nodes.
+                content.innerHTML = data;
+                if (self.isListPage) {
+                    var summary = document.createElement('div');
+                    $(summary).addClass('post-content');
+                    $(summary).addClass('post-summary');
+                    body.insertBefore(summary, content);
+                    if (match) {
+                        // Use provided summary.
+                        summary.innerHTML = match[2];
+                    } else {
+                        // Generate a summary.
+                        // Summary generation relies on DOM, so it must occur after content is
+                        // inserted into the page.
+                        summary.innerHTML = self.generateSummaryFromContent(content, 30);
+                    }
+                    // Add read more link to summary.
+                    var titleAnchor = $(this).find('.title a')[0];
+                    var link = titleAnchor.cloneNode(true);
+                    link.innerHTML = 'Read More';
+                    $(link).addClass('read-more');
+                    summary.appendChild(link);
+                }
+            });
+            // Firefox does not allow for proper styling of BR.
+            if (navigator.userAgent.indexOf('Firefox') > -1) {
+                $('.post-content br').replaceWith('<span class="space"></span>');
+            }
+            $('.loading').removeClass('loading');
+        };
+        BreakpointHandler.prototype.process = function () {
+            if (!this.initted) {
+                var makeInsecureImageRegex = function (hosts) {
+                    var whitelist = hosts.join('|').replace(/\./g, '\\.');
+                    // Normal image tags, plus input images (yes, this is possible!)
+                    return new RegExp('(<(img|input)[^>]+?src=("|\'))http:\/\/(' + whitelist + ')', 'g');
+                };
+                this.sslImageRegex = makeInsecureImageRegex(BreakpointHandler.KNOWN_HTTPS_HOSTS);
+                this.sslImageCurrentDomainRegex = makeInsecureImageRegex([window.location.hostname]);
+                this.detect();
+                this.initContent();
+                this.initted = true;
+            }
+        };
+        BreakpointHandler.KNOWN_HTTPS_HOSTS = [
+            "www.google.org",
+            "www.google.com",
+            "services.google.com",
+            "blogger.com",
+            "draft.blogger.com",
+            "www.blogger.com",
+            "photos1.blogger.com",
+            "photos2.blogger.com",
+            "photos3.blogger.com",
+            "blogblog.com",
+            "img1.blogblog.com",
+            "img2.blogblog.com",
+            "www.blogblog.com",
+            "www1.blogblog.com",
+            "www2.blogblog.com",
+            "0.bp.blogspot.com",
+            "1.bp.blogspot.com",
+            "2.bp.blogspot.com",
+            "3.bp.blogspot.com",
+            "4.bp.blogspot.com",
+            "lh3.googleusercontent.com",
+            "lh4.googleusercontent.com",
+            "lh5.googleusercontent.com",
+            "lh6.googleusercontent.com",
+            "themes.googleusercontent.com",
+        ];
+        BreakpointHandler.prototype.rewriteForSSL = function (html) {
+            // Handle HTTP -> HTTPS source replacement of images, movies, and other embedded content.
+            return html.replace(this.sslImageRegex, '$1https://$4')
+                .replace(this.sslImageCurrentDomainRegex, '$1//$4')
+                .replace(/(<(embed|iframe)[^>]+?src=("|'))http:\/\/([^"']*?(youtube|picasaweb\.google)\.com)/g, '$1https://$4')
+                // Slideshow SWF takes a image host, so we need to rewrite that parameter.
+                .replace(/(<embed[^>]+?feed=http(?=[^s]))/g, '$1s');
+        };
+        $(document).ready(function () {
+            var handler = new BreakpointHandler();
+            handler.process();
+            // Top-level navigation.
+            $(".BlogArchive .tab").click(function (ev) {
+                ev.preventDefault();
+                $(this).parent().toggleClass('active');
+                $(this).siblings().slideToggle(300);
+            });
+            $(".Label .tab").click(function (ev) {
+                ev.preventDefault();
+                $(this).parent().toggleClass('active');
+                $(this).siblings().slideToggle(300);
+            });
+            // Blog archive year expansion.
+            $('.BlogArchive .intervalToggle').click(function (ev) {
+                ev.preventDefault();
+                if ($(this).parent().hasClass('collapsed')) {
+                    $(this).parent().removeClass('collapsed');
+                    $(this).parent().addClass('expanded');
+                } else {
+                    $(this).parent().removeClass('expanded');
+                    $(this).parent().addClass('collapsed');
+                }
+            });
+            // Reverse order of months.
+            $('.BlogArchive .intervalToggle + div').each(function (_, items) {
+                var year = $(this);
+                year.children().each(function (_, month) {
+                    year.prepend(month);
+                });
+            });
+            // Set anchors to open in new tab.
+            $('.post-content img').parent().each(function (_, node) {
+                if (node.nodeName == 'A') {
+                    $(this).attr('target', '_blank');
+                }
+            });
+            // Process search requests.
+            $('.searchBox input').on("keypress", function (ev) {
+                if (ev.which == 13) {
+                    window.location.href = 'https://www.google.com/search?q=site%3A' + window.location.hostname + '%20' + encodeURIComponent($(this).val());
+                }
+            });
+        });
+        //]]>
+    </script>
+
+</body>
+
+</html>
