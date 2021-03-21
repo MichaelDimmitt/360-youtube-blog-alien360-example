@@ -1349,216 +1349,218 @@ type="color" default="#ffffff"/>
                             <h2 class='title' itemprop='name'>
                                 <a href='https://youtube-eng.googleblog.com/2018/08/control-your-360-videos-with-youtube.html'
                                     itemprop='url' title='Control your 360 videos with the YouTube IFrame Player API'>
-                                    Control your 360 videos with the YouTube IFrame Player API<br/>
+                                    Control your 360 videos with the YouTube IFrame Player API<br />
                                     Click the alien button to focus on the alien!
                                 </a>
                             </h2>
                             <div class='post-body'>
                                 <div class='post-content' itemprop='articleBody'>
                                     <script type='text/template'>
-                            <style>
-                            #alienButton { 
-                                position: relative; 
-                                display:block; 
-                                margin: 15px auto; 
-                                border-width: 0; 
-                                outline: none; 
-                                border-radius: 10px; 
-                                box-shadow: 0 3px 6px rgba(0, 0, 0, .24); 
-                                background-color: #f00; 
-                                color: #fff; 
-                                transition: background-color .2s; 
-                            } 
-                            #alienButton:hover { 
-                                background-color: #F44336; 
-                            } 
-                            #alienButton:active { 
-                                box-shadow: 0 2px 6px rgba(0, 0, 0, .24); 
-                                background-color: #EF9A9A; 
-                            } 
-                            #alienButton:disabled { 
-                                box-shadow: 0 1px 3px rgba(0, 0, 0, .24); 
-                                background-color: #9E9E9E; 
-                            } 
-                            #alienButton span { 
-                                display: block; 
-                                padding: 12px 24px; 
-                                font-size: 20px;
-                            }
-                            </style>
-
-
-                            <br />
-                            <div style="width: 100%;">
-                            <iframe frameborder="0" height="350" id="alien-iframe-embed" onload="(function() {if(window.location.search.indexOf('m=1')&gt;=0){return;} jsScript = document.getElementById('alien-js-script'); eval(jsScript.innerHTML);})()" src="https://www.youtube.com/embed/G-XZhKqQAHU?enablejsapi=1" style="border: 0px;" width="100%"></iframe>
-                            <button disabled="" id="alienButton"><span id="alienButtonText">Alien!!!</span></button> 
-
-
-                            <script id="alien-js-script" type="text/javascript">
-                                // Initialize the iframe embed's API. 
-                                const tag = document.createElement('script');
-                                tag.src = "https://www.youtube.com/iframe_api";
-                                const firstScriptTag = document.getElementsByTagName('script')[0];
-                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-                                let ytplayer;
-                                window.onYouTubeIframeAPIReady = function() {
-                                    ytplayer = new YT.Player('alien-iframe-embed', {
-                                        events: {
-                                            'onStateChange': onPlayerStateChange,
-                                        },
-                                    });
-                                }
-
-                                // Disable the button by default. 
-                                // When video goes into PLAYING state, enable the button. 
-                                const alienButton = document.getElementById("alienButton");
-                                alienButton.disabled = true;
-                                window.onPlayerStateChange = function(event) {
-                                    if (event.data == 1) {
-                                        alienButton.disabled = false;
-                                    }
-                                }
-
-                                // This function constructs a polynomial using a list of input weights.
-                                function poly(weights) {
-                                    return function(t) {
-                                        let val = 0;
-                                        let x = 1;
-                                        for (let w of weights) {
-                                            val += x * w;
-                                            x *= t;
-                                        }
-                                        return val;
-                                    }
-                                }
-
-                                // These are hand fitted polynomials that tracks the movement of the alien
-                                // throughout the video.
-                                // For yaw, we had to change between several different polynomial to keep
-                                // things performant. 
-                                // For pitch, a single polynomial over the entire duration of the video
-                                // was sufficient. 
-                                const yawTrack = function() {
-                                    const yaw11 = poly([-3.04631909e+03, 1.19219406e+03, -1.88145883e+02,
-                                        1.55743418e+01, -7.41740578e-01, 2.10484076e-02,
-                                        -3.51373142e-04, 3.18408210e-06, -1.20830410e-08
-                                    ]);
-                                    const yaw58 = poly([2.14359903e+08, -1.95479428e+07, 7.41961802e+05,
-                                        -1.50035469e+04, 1.70475072e+02, -1.03194757e+00,
-                                        2.60000087e-03
-                                    ]);
-                                    const yaw74 = poly([-1.46264739e+06, 9.00087573e+04, -2.28526587e+03,
-                                        3.06432819e+01, -2.28920640e-01, 9.03520918e-04,
-                                        -1.47226423e-06
-                                    ]);
-                                    const yaw129 = poly([1.39044612e+05, -3.12771539e+03, 2.33594151e+01,
-                                        -5.81151009e-02
-                                    ]);
-                                    const yaw146 = poly([5.35468540e+04, -9.57843251e+02, 4.42486931e-01,
-                                        9.96639354e-02, -8.72828330e-04, 3.01098624e-06,
-                                        -3.82035076e-09
-                                    ]);
-                                    const yaw209 = poly([-1.00415969e+05, -2.56340987e+03, 7.66464454e+01,
-                                        -6.85017122e-01, 2.88569970e-03, -5.93185145e-06,
-                                        4.80999119e-09
-                                    ]);
-                                    return function(t) {
-                                        let val;
-                                        if (t < 11) {
-                                            val = 0;
-                                        } else if (t < 58) {
-                                            val = yaw11(t);
-                                        } else if (t < 74) {
-                                            val = yaw58(t);
-                                        } else if (t < 129) {
-                                            val = yaw74(t);
-                                        } else if (t < 146) {
-                                            val = yaw129(t);
-                                        } else if (t < 209) {
-                                            val = yaw146(t);
-                                        } else {
-                                            val = yaw209(t);
-                                        }
-                                        return (val % 360 + 360) % 360;
-                                    };
-                                }();
-                                const pitchTrack = poly([-1.45284489e+00, 1.60253082e+00, -2.48931512e-01,
-                                    1.19719311e-02, -2.92248673e-04, 4.13528625e-06,
-                                    -3.56801619e-08, 1.89765163e-10, -6.05548401e-13,
-                                    1.06076048e-15, -7.82844242e-19
-                                ])
-
-                                // When the button is clicked, we starts an animation motion. 
-                                // It essentially "drags" the view toward the target using
-                                // a predefined spring constant. 
-                                alienButton.onclick = function() {
-                                    const springConstant = -0.8;
-                                    let previousYaw = null;
-                                    let previousPitch = null;
-                                    let initialTime = null;
-                                    let animate = false;
-
-                                    function onAnimationFrame() {
-                                        const currentSetting = ytplayer.getSphericalProperties();
-                                        const currentYaw = currentSetting.yaw;
-                                        const currentPitch = currentSetting.pitch;
-                                        const currentTime = performance.now();
-                                        const videoTime = ytplayer.getCurrentTime();
-
-                                        if (!initialTime) {
-                                            if (currentSetting.yaw != null) {
-                                                initialTime = currentTime;
-                                                animate = true;
-                                                alienButton.disabled = true;
+                                        <style>
+                                            #alienButton { 
+                                                position: relative; 
+                                                display:block; 
+                                                margin: 15px auto; 
+                                                border-width: 0; 
+                                                outline: none; 
+                                                border-radius: 10px; 
+                                                box-shadow: 0 3px 6px rgba(0, 0, 0, .24); 
+                                                background-color: #f00; 
+                                                color: #fff; 
+                                                transition: background-color .2s; 
+                                            } 
+                                            #alienButton:hover { 
+                                                background-color: #F44336; 
+                                            } 
+                                            #alienButton:active { 
+                                                box-shadow: 0 2px 6px rgba(0, 0, 0, .24); 
+                                                background-color: #EF9A9A; 
+                                            } 
+                                            #alienButton:disabled { 
+                                                box-shadow: 0 1px 3px rgba(0, 0, 0, .24); 
+                                                background-color: #9E9E9E; 
+                                            } 
+                                            #alienButton span { 
+                                                display: block; 
+                                                padding: 12px 24px; 
+                                                font-size: 20px;
                                             }
-                                        }
+                                        </style>
 
-                                        if (animate) {
-                                            const targetYaw = yawTrack(videoTime);
-                                            const targetPitch = pitchTrack(videoTime);
-                                            let yawDiff = targetYaw - currentYaw;
-                                            if (yawDiff > 180) {
-                                                yawDiff -= 360;
-                                            } else if (yawDiff < -180) {
-                                                yawDiff += 360;
-                                            }
-                                            const pitchDiff = targetPitch - currentPitch;
 
-                                            if (Math.max(Math.abs(yawDiff), Math.abs(pitchDiff)) < 1) {
-                                                animate = false;
+                                        <br />
+                                        <div style="width: 100%;">
+                                        <iframe frameborder="0" height="350" id="alien-iframe-embed" 
+                                            onload="(function() {if(window.location.search.indexOf('m=1')&gt;=0){return;} jsScript = document.getElementById('alien-js-script'); eval(jsScript.innerHTML);})()"
+                                            src="https://www.youtube.com/embed/G-XZhKqQAHU?enablejsapi=1" style="border: 0px;" width="100%"
+                                        ></iframe>
+                                        <button disabled="" id="alienButton"><span id="alienButtonText">Alien!!!</span></button> 
+
+                                        <script id="alien-js-script" type="text/javascript">
+                                            // Initialize the iframe embed's API. 
+                                            const tag = document.createElement('script');
+                                            tag.src = "https://www.youtube.com/iframe_api";
+                                            const firstScriptTag = document.getElementsByTagName('script')[0];
+                                            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                                            let ytplayer;
+                                            window.onYouTubeIframeAPIReady = function() {
+                                                ytplayer = new YT.Player('alien-iframe-embed', {
+                                                    events: {
+                                                        'onStateChange': onPlayerStateChange,
+                                                    },
+                                                });
                                             }
 
-                                            deltaTime = (currentTime - initialTime) / 1000;
+                                            // Disable the button by default. 
+                                            // When video goes into PLAYING state, enable the button. 
+                                            const alienButton = document.getElementById("alienButton");
+                                            alienButton.disabled = true;
+                                            window.onPlayerStateChange = function(event) {
+                                                if (event.data == 1) {
+                                                    alienButton.disabled = false;
+                                                }
+                                            }
 
-                                            let newYaw = targetYaw - yawDiff * Math.exp(springConstant * deltaTime);
-                                            newYaw = (newYaw % 360 + 360) % 360;
-                                            let newPitch = targetPitch - pitchDiff * Math.exp(springConstant * deltaTime);
+                                            // This function constructs a polynomial using a list of input weights.
+                                            function poly(weights) {
+                                                return function(t) {
+                                                    let val = 0;
+                                                    let x = 1;
+                                                    for (let w of weights) {
+                                                        val += x * w;
+                                                        x *= t;
+                                                    }
+                                                    return val;
+                                                }
+                                            }
 
-                                            ytplayer.setSphericalProperties({
-                                                yaw: newYaw,
-                                                pitch: newPitch,
-                                                // Keeps the demo working on phones.
-                                                // In practical use, calling this once is sufficient.
-                                                // We are just piggybacking it here to keep things simple. 
-                                                enableOrientationSensor: false
-                                            });
-                                        }
+                                            // These are hand fitted polynomials that tracks the movement of the alien
+                                            // throughout the video.
+                                            // For yaw, we had to change between several different polynomial to keep
+                                            // things performant. 
+                                            // For pitch, a single polynomial over the entire duration of the video
+                                            // was sufficient. 
+                                            const yawTrack = function() {
+                                                const yaw11 = poly([-3.04631909e+03, 1.19219406e+03, -1.88145883e+02,
+                                                    1.55743418e+01, -7.41740578e-01, 2.10484076e-02,
+                                                    -3.51373142e-04, 3.18408210e-06, -1.20830410e-08
+                                                ]);
+                                                const yaw58 = poly([2.14359903e+08, -1.95479428e+07, 7.41961802e+05,
+                                                    -1.50035469e+04, 1.70475072e+02, -1.03194757e+00,
+                                                    2.60000087e-03
+                                                ]);
+                                                const yaw74 = poly([-1.46264739e+06, 9.00087573e+04, -2.28526587e+03,
+                                                    3.06432819e+01, -2.28920640e-01, 9.03520918e-04,
+                                                    -1.47226423e-06
+                                                ]);
+                                                const yaw129 = poly([1.39044612e+05, -3.12771539e+03, 2.33594151e+01,
+                                                    -5.81151009e-02
+                                                ]);
+                                                const yaw146 = poly([5.35468540e+04, -9.57843251e+02, 4.42486931e-01,
+                                                    9.96639354e-02, -8.72828330e-04, 3.01098624e-06,
+                                                    -3.82035076e-09
+                                                ]);
+                                                const yaw209 = poly([-1.00415969e+05, -2.56340987e+03, 7.66464454e+01,
+                                                    -6.85017122e-01, 2.88569970e-03, -5.93185145e-06,
+                                                    4.80999119e-09
+                                                ]);
+                                                return function(t) {
+                                                    let val;
+                                                    if (t < 11) {
+                                                        val = 0;
+                                                    } else if (t < 58) {
+                                                        val = yaw11(t);
+                                                    } else if (t < 74) {
+                                                        val = yaw58(t);
+                                                    } else if (t < 129) {
+                                                        val = yaw74(t);
+                                                    } else if (t < 146) {
+                                                        val = yaw129(t);
+                                                    } else if (t < 209) {
+                                                        val = yaw146(t);
+                                                    } else {
+                                                        val = yaw209(t);
+                                                    }
+                                                    return (val % 360 + 360) % 360;
+                                                };
+                                            }();
+                                            const pitchTrack = poly([-1.45284489e+00, 1.60253082e+00, -2.48931512e-01,
+                                                1.19719311e-02, -2.92248673e-04, 4.13528625e-06,
+                                                -3.56801619e-08, 1.89765163e-10, -6.05548401e-13,
+                                                1.06076048e-15, -7.82844242e-19
+                                            ])
 
-                                        if (animate) {
-                                            requestAnimationFrame(onAnimationFrame);
-                                        } else {
-                                            alienButton.disabled = false;
-                                            initialTime = null;
-                                        }
-                                    }
+                                            // When the button is clicked, we starts an animation motion. 
+                                            // It essentially "drags" the view toward the target using
+                                            // a predefined spring constant. 
+                                            alienButton.onclick = function() {
+                                                const springConstant = -0.8;
+                                                let previousYaw = null;
+                                                let previousPitch = null;
+                                                let initialTime = null;
+                                                let animate = false;
 
-                                    return onAnimationFrame;
-                                }();
-                            </script>
+                                                function onAnimationFrame() {
+                                                    const currentSetting = ytplayer.getSphericalProperties();
+                                                    const currentYaw = currentSetting.yaw;
+                                                    const currentPitch = currentSetting.pitch;
+                                                    const currentTime = performance.now();
+                                                    const videoTime = ytplayer.getCurrentTime();
 
-                                    <span itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
-                                        <meta content='https://plus.google.com/116899029375914044550' itemprop='url' />
-                                    </span>
+                                                    if (!initialTime) {
+                                                        if (currentSetting.yaw != null) {
+                                                            initialTime = currentTime;
+                                                            animate = true;
+                                                            alienButton.disabled = true;
+                                                        }
+                                                    }
+
+                                                    if (animate) {
+                                                        const targetYaw = yawTrack(videoTime);
+                                                        const targetPitch = pitchTrack(videoTime);
+                                                        let yawDiff = targetYaw - currentYaw;
+                                                        if (yawDiff > 180) {
+                                                            yawDiff -= 360;
+                                                        } else if (yawDiff < -180) {
+                                                            yawDiff += 360;
+                                                        }
+                                                        const pitchDiff = targetPitch - currentPitch;
+
+                                                        if (Math.max(Math.abs(yawDiff), Math.abs(pitchDiff)) < 1) {
+                                                            animate = false;
+                                                        }
+
+                                                        deltaTime = (currentTime - initialTime) / 1000;
+
+                                                        let newYaw = targetYaw - yawDiff * Math.exp(springConstant * deltaTime);
+                                                        newYaw = (newYaw % 360 + 360) % 360;
+                                                        let newPitch = targetPitch - pitchDiff * Math.exp(springConstant * deltaTime);
+
+                                                        ytplayer.setSphericalProperties({
+                                                            yaw: newYaw,
+                                                            pitch: newPitch,
+                                                            // Keeps the demo working on phones.
+                                                            // In practical use, calling this once is sufficient.
+                                                            // We are just piggybacking it here to keep things simple. 
+                                                            enableOrientationSensor: false
+                                                        });
+                                                    }
+
+                                                    if (animate) {
+                                                        requestAnimationFrame(onAnimationFrame);
+                                                    } else {
+                                                        alienButton.disabled = false;
+                                                        initialTime = null;
+                                                    }
+                                                }
+
+                                                return onAnimationFrame;
+                                            }();
+                                        </script>
+
+                                        <span itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                                            <meta content='https://plus.google.com/116899029375914044550' itemprop='url' />
+                                        </span>
                                     </script>
                                     <noscript>
                                         <style>
@@ -1595,8 +1597,6 @@ type="color" default="#ffffff"/>
                                                 font-size: 20px;
                                             }
                                         </style>
-
-
                                         <br />
                                         <div style="width: 100%;">
                                             <iframe frameborder="0" height="350" id="alien-iframe-embed"
@@ -1607,7 +1607,9 @@ type="color" default="#ffffff"/>
                                                     id="alienButtonText">Alien!!!</span></button>
                                         </div>
 
-                                        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"></link>
+                                        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono"
+                                            rel="stylesheet">
+                                        </link>
                                         <script id="alien-js-script" type="text/javascript">
                                             // Initialize the iframe embed's API. 
                                             const tag = document.createElement('script');
@@ -1778,16 +1780,16 @@ type="color" default="#ffffff"/>
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class='clear'></div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div style='clear:both;'></div>
     </div>
-   
+
     <script type='text/javascript'>
         //<![CDATA[
         var BreakpointHandler = function () {
